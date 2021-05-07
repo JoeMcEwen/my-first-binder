@@ -3,5 +3,6 @@ channels:
 dependencies:
   - python
   - numpy
+  - matplotlib 
   - psutil
   - toolz
