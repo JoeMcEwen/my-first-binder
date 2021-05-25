@@ -68,3 +68,102 @@ def periodic_sawtooth():
     
     return fig 
     
+def sawtooth_static_plot():
+    '''
+    plot sawtooth function
+    '''
+    
+    nx=1000
+    L=1
+    A=1
+    x=np.linspace(-L/2,L/2,nx)
+    y=A*x
+    
+    n_h=50
+    harmonics=np.zeros((n_h,x.size))
+    
+    for i in range(n_h):
+        
+        n=i + 1
+        
+        bn=(-1)**(n+1)*A/pi/n
+        kn=2*n*pi/L
+        
+        harmonics[i,:]=bn*sin(kn*x)
+    
+    
+    
+    fig=plt.figure(figsize=(14,6))
+    
+    ax=fig.add_subplot(221)
+    ax.set_xlim(-3*L/2,3*L/2)
+    ax.set_title(r"$n=1$",size=20)
+    
+    h=harmonics[0,:]
+    
+    ax.plot(x,y,color="blue")
+    ax.plot(x-L,y,color="blue")
+    ax.plot(x+L,y,color="blue")
+    ax.axvline(-L/2,color="black",alpha=.5)
+    ax.axvline(L/2,color="black",alpha=.5)
+    ax.plot(x,h,color="orange")
+    ax.plot(x-L,h,color="orange")
+    ax.plot(x+L,h,color="orange")
+    ax.grid()
+
+    
+    ax=fig.add_subplot(222)
+    ax.set_xlim(-3*L/2,3*L/2)
+    ax.set_title(r"$n=5$",size=20)
+    
+    
+    h=np.sum(harmonics[:5,:],axis=0)
+    
+    ax.plot(x,y,color="blue")
+    ax.plot(x-L,y,color="blue")
+    ax.plot(x+L,y,color="blue")
+    ax.axvline(-L/2,color="black",alpha=.5)
+    ax.axvline(L/2,color="black",alpha=.5)
+    ax.plot(x,h,color="orange")
+    ax.plot(x-L,h,color="orange")
+    ax.plot(x+L,h,color="orange")
+    ax.grid()
+    
+    ax=fig.add_subplot(223)
+    ax.set_xlim(-3*L/2,3*L/2)
+    ax.set_title(r"$n=20$",size=20)
+    ax.set_xlabel("x", size=20)
+    
+    h=np.sum(harmonics[:20,:],axis=0)
+    
+    ax.plot(x,y,color="blue")
+    ax.plot(x-L,y,color="blue")
+    ax.plot(x+L,y,color="blue")
+    ax.axvline(-L/2,color="black",alpha=.5)
+    ax.axvline(L/2,color="black",alpha=.5)
+    ax.plot(x,h,color="orange")
+    ax.plot(x-L,h,color="orange")
+    ax.plot(x+L,h,color="orange")
+    ax.grid()
+    
+    
+    ax=fig.add_subplot(224)
+    ax.set_xlim(-3*L/2,3*L/2)
+    ax.set_title(r"$n=50$",size=20)
+    ax.set_xlabel("x", size=20)
+    
+    h=np.sum(harmonics,axis=0)
+    
+    ax.plot(x,y,color="blue")
+    ax.plot(x-L,y,color="blue")
+    ax.plot(x+L,y,color="blue")
+    ax.axvline(-L/2,color="black",alpha=.5)
+    ax.axvline(L/2,color="black",alpha=.5)
+    ax.plot(x,h,color="orange")
+    ax.plot(x-L,h,color="orange")
+    ax.plot(x+L,h,color="orange")
+    ax.grid()
+    plt.tight_layout()
+    plt.close()
+    return fig
+    
